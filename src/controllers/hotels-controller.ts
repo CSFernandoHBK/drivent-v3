@@ -13,9 +13,11 @@ export async function getAllHotels(req: AuthenticatedRequest, res: Response) {
 }
 
 export async function getRoomsFromHotel(req: AuthenticatedRequest, res: Response) {
+    const {hotelId} = req.params;
+
     try{
-        const rooms = await hotelsService.getRoomsFromHotel()
-        return res.send(rooms)
+        const rooms = await hotelsService.getRoomsFromHotel(Number(hotelId))
+        return res.status(200).send(rooms)
     } catch(err){
         console.log(err)
         return res.status(500).send(err)
